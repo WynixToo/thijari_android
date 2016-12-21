@@ -1,0 +1,5 @@
+Operating System: CentOS 7.3.1611 (latest update)
+Apache version: Server version: Apache/2.4.6 (CentOS), Server built:   Nov 14 2016 18:04:44
+PHP: php-5.4.16-42.el7.x86_64
+MySQL version:  mysql  Ver 14.14 Distrib 5.6.35, username: root/r00t24434
+GIT version: GIT version 1.8.3.1
