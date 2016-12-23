@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#954D97</color>
+    <color name="colorPrimaryDark">#954D97</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="white_20">#33FFFFFF</color>
+    <color name="transparent">#00000000</color>
+    <color name="black">#000000</color>
+    <color name="icon_enabled">#FFFFFFFF</color>
+    <color name="icon_disabled">#FF63727B</color>
+    <color name="text_enabled">#FFFFFFFF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="text_disabled">#4DFFFFFF</color>
+    <color name="news_lbl">#A380A4</color>
+    <color name="trans_lbl">#A0B654</color>
+    <color name="promo_lbl">#EB5666</color>
+    <color name="con_lbl">#3BB49C</color>
+    <color name="q_lbl">#E68B66</color>
+    <color name="mag_lbl">#5F85A3</color>
+    <color name="dialog_btn_text">#EF5350</color>
+    <color name="background_color">#F2F2F2</color>
+
+</resources>

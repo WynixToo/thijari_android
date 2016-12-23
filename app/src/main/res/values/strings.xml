@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ThiJari</string>
+    <string name="promo">PROMOSI</string>
+    <string name="contact">HUBUNGI</string>
+    <string name="magazine">MAHALAH</string>
+    <string name="news">BERITA TERKINI</string>
+    <string name="myq">MY Q</string>
+    <string name="transaction">PINDAHAN SIMPANAN</string>
+</resources>
