@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ThiJari.iml" filepath="$PROJECT_DIR$/ThiJari.iml" />
       <module fileurl="file://$PROJECT_DIR$/androidpdfview/androidpdfview.iml" filepath="$PROJECT_DIR$/androidpdfview/androidpdfview.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/thijari_android.iml" filepath="$PROJECT_DIR$/thijari_android.iml" />
     </modules>
   </component>
 </project>
