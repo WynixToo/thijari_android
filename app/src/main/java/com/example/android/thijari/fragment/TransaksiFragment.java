@@ -7,10 +7,14 @@ import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
@@ -59,6 +63,7 @@ public class TransaksiFragment extends BaseFragment {
         webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setDisplayZoomControls(false);
+
 
         webView.addJavascriptInterface(new javaScriptInterface(getActivity()), "HtmlViewer");
 
@@ -146,13 +151,27 @@ public class TransaksiFragment extends BaseFragment {
             }
         });
 
-        webView.setWebChromeClient(new WebChromeClient() {
-            public void onProgressChanged(WebView view, int progress) {
-                // Activities and WebViews measure progress with different scales.
-                // The progress meter will automatically disappear when we reach 100%
-                getActivity().setProgress(progress * 1000);
+        webView.setOnKeyListener(new View.OnKeyListener(){
+
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK
+                        && event.getAction() == MotionEvent.ACTION_UP
+                        && webView.canGoBack()) {
+                    handler.sendEmptyMessage(1);
+                    return true;
+                }
+
+                return false;
             }
+
         });
+//        webView.setWebChromeClient(new WebChromeClient() {
+//            public void onProgressChanged(WebView view, int progress) {
+//                // Activities and WebViews measure progress with different scales.
+//                // The progress meter will automatically disappear when we reach 100%
+//                getActivity().setProgress(progress * 1000);
+//            }
+//        });
 
         //Change your URL here.
         //webView.loadUrl("http://10.10.10.181/public/login.html");
@@ -176,5 +195,19 @@ public class TransaksiFragment extends BaseFragment {
         }
 
     }
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message message) {
+            switch (message.what) {
+                case 1:{
+                    if (webView != null) {
+                        webView.goBack();
+                    }
+
+                }break;
+            }
+        }
+    };
 
 }
