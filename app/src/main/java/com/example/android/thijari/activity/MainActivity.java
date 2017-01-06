@@ -1,8 +1,8 @@
 package com.example.android.thijari.activity;
 
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
 
@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     private DemoImitationLoopPagerAdapter adapter;
     private MaterialViewPager viewPager;
     FrameLayout root;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

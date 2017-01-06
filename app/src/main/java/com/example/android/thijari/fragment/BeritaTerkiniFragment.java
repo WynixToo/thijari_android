@@ -8,16 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 
 import com.example.android.thijari.R;
 import com.example.android.thijari.adapter.TestRecyclerViewAdapter;
-import com.github.florent37.materialviewpager.header.MaterialViewPagerHeaderDecorator;
-import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
+import com.example.android.thijari.rest.ThijariService;
+import com.example.android.thijari.rest.listener.OnRetrofitResponse;
+import com.example.android.thijari.rest.model.Feed;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
-import com.wynixtoo.thijariapilib.ThijariService;
-import com.wynixtoo.thijariapilib.interfaces.OnRetrofitResponse;
-import com.wynixtoo.thijariapilib.model.Feed;
 
 import java.util.ArrayList;
 import java.util.List;

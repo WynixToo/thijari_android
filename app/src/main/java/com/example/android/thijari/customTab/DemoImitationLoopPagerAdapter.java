@@ -4,11 +4,6 @@ import android.support.annotation.DrawableRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.util.SparseArrayCompat;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.android.thijari.fragment.BeritaTerkiniFragment;
 import com.example.android.thijari.fragment.ContactFragment;
@@ -17,9 +12,7 @@ import com.example.android.thijari.fragment.MyQFragment;
 import com.example.android.thijari.fragment.PromosiFragment;
 import com.example.android.thijari.fragment.TransaksiFragment;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -30,7 +23,7 @@ public class DemoImitationLoopPagerAdapter extends FragmentPagerAdapter {
     private static final int NUMBER_OF_LOOPS = 10000;
 
     private List<Integer> mItems = new ArrayList<>();
-//    private final SparseArrayCompat<WeakReference<Fragment>> holder;
+    //    private final SparseArrayCompat<WeakReference<Fragment>> holder;
     private ContactFragment contactFragment;
     private MagazineFragment magazineFragment;
     private BeritaTerkiniFragment beritaTerkiniFragment;
@@ -43,6 +36,10 @@ public class DemoImitationLoopPagerAdapter extends FragmentPagerAdapter {
 //        this.holder = new SparseArrayCompat<>(mItems.size());
     }
 
+    public ContactFragment getContactFragment(){
+        return this.contactFragment;
+    }
+
     @Override
     public Fragment getItem(int position) {
         int index = position % mItems.size();
@@ -51,17 +48,18 @@ public class DemoImitationLoopPagerAdapter extends FragmentPagerAdapter {
 
         switch (index) {
             case 0:
-                    return ContactFragment.newInstance();
+                contactFragment = ContactFragment.newInstance();
+                return contactFragment;
             case 1:
-                    return MagazineFragment.newInstance();
+                return MagazineFragment.newInstance();
             case 2:
-                    return BeritaTerkiniFragment.newInstance();
+                return BeritaTerkiniFragment.newInstance();
             case 3:
-                    return PromosiFragment.newInstance();
+                return PromosiFragment.newInstance();
             case 4:
-                    return MyQFragment.newInstance();
+                return MyQFragment.newInstance();
             case 5:
-                    return TransaksiFragment.newInstance();
+                return TransaksiFragment.newInstance();
             default:
                 return null;
         }
@@ -167,7 +165,7 @@ public class DemoImitationLoopPagerAdapter extends FragmentPagerAdapter {
 
     private List<Integer> selectedIcons = new ArrayList<>();
 
-    public void setSelectedIcons(List<Integer> icons){
+    public void setSelectedIcons(List<Integer> icons) {
         selectedIcons = icons;
     }
 

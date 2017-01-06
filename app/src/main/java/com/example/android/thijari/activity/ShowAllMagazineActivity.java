@@ -11,10 +11,10 @@ import com.example.android.thijari.R;
 import com.example.android.thijari.adapter.MagazineListViewAdapter;
 import com.example.android.thijari.dialog.PDFDownloader;
 import com.example.android.thijari.dialog.TwoButtonDialog;
+import com.example.android.thijari.rest.ThijariService;
+import com.example.android.thijari.rest.listener.OnRetrofitResponse;
+import com.example.android.thijari.rest.model.MagazineListData;
 import com.example.android.thijari.util.CommonUtil;
-import com.wynixtoo.thijariapilib.ThijariService;
-import com.wynixtoo.thijariapilib.interfaces.OnRetrofitResponse;
-import com.wynixtoo.thijariapilib.model.MagazineListData;
 
 import java.io.IOException;
 import java.util.List;

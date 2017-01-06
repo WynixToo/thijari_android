@@ -1,17 +1,26 @@
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/QueueBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_color">
+    android:background="@color/background_color"
+    android:clipToPadding="false"
+    android:fillViewport="true">
 
-    <LinearLayout
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical">-->
+    <android.support.percent.PercentRelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+
 
         <ImageView
+            android:id="@+id/myQTopSeperate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
@@ -19,8 +28,11 @@
             android:src="@drawable/arrow_queue" />
 
         <TextView
+            android:id="@+id/myQTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/myQTopSeperate"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_5sdp"
@@ -28,5 +40,197 @@
             android:textColor="@color/q_lbl"
             android:textSize="@dimen/_20sdp" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/myQDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/myQTitle"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:gravity="center"
+            android:paddingLeft="@dimen/_40sdp"
+            android:paddingRight="@dimen/_40sdp"
+            android:text="@string/myQueu_Description"
+            android:textSize="@dimen/_14sdp" />
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="@dimen/_20sdp"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:padding="@dimen/_20sdp"-->
+        <!--android:weightSum="3">-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/queueSelectBranch"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"-->
+        <!--android:drawablePadding="@dimen/_10sdp"-->
+        <!--android:drawableTop="@drawable/select_branch"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:text="@string/myQueue_SelectBranch"-->
+        <!--android:textSize="@dimen/_12sdp" />-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/queueCheckIn"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"-->
+        <!--android:drawablePadding="@dimen/_10sdp"-->
+        <!--android:drawableTop="@drawable/check_in"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:text="@string/myQueue_CheckIn"-->
+        <!--android:textSize="@dimen/_12sdp" />-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/queueTutorial"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"-->
+        <!--android:drawablePadding="@dimen/_10sdp"-->
+        <!--android:drawableTop="@drawable/tut_button"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:text="@string/myQueue_Tutorial"-->
+        <!--android:textSize="@dimen/_12sdp" />-->
+        <!--</LinearLayout>-->
+
+        <!--<android.support.percent.PercentRelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_marginTop="@dimen/_20sdp"-->
+        <!--android:padding="@dimen/_20sdp">-->
+
+        <TextView
+            android:id="@+id/queueSelectBranch"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/myQDescription"
+            android:layout_centerVertical="true"
+            android:drawablePadding="@dimen/_10sdp"
+            android:drawableTop="@drawable/select_branch"
+            android:gravity="center_horizontal"
+            android:paddingLeft="@dimen/_20sdp"
+            android:text="@string/myQueue_SelectBranch"
+            android:textSize="@dimen/_12sdp"
+            app:layout_widthPercent="33%" />
+
+        <TextView
+            android:id="@+id/queueCheckIn"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/myQDescription"
+            android:layout_toRightOf="@id/queueSelectBranch"
+            android:drawablePadding="@dimen/_10sdp"
+            android:drawableTop="@drawable/check_in"
+            android:gravity="center_horizontal"
+            android:text="@string/myQueue_CheckIn"
+            android:textSize="@dimen/_12sdp"
+            app:layout_widthPercent="33%" />
+
+        <TextView
+            android:id="@+id/queueTutorial"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/myQDescription"
+            android:layout_toRightOf="@id/queueCheckIn"
+            android:drawablePadding="@dimen/_10sdp"
+            android:drawableTop="@drawable/tut_button"
+            android:gravity="center_horizontal"
+            android:paddingRight="@dimen/_20sdp"
+            android:text="@string/myQueue_Tutorial"
+            android:textSize="@dimen/_12sdp"
+            app:layout_widthPercent="33%" />
+
+
+        <View
+            android:id="@+id/overlayView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/black_20"
+            android:gravity="center"
+            android:visibility="gone"></View>
+
+        <TextView
+            android:id="@+id/step1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/queueSelectBranch"
+            android:layout_alignTop="@id/queueSelectBranch"
+            android:layout_marginLeft="@dimen/_22sdp"
+            android:layout_marginTop="@dimen/_minus10sdp"
+            android:background="@drawable/step_round_bg"
+            android:text="1"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/step1Description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/step1"
+            android:layout_alignLeft="@id/step1"
+            android:layout_marginBottom="@dimen/_15sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:background="@drawable/step_descrip_bg"
+            android:text="@string/myQueue_step1_description"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/step2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/queueCheckIn"
+            android:layout_alignRight="@id/queueCheckIn"
+            android:layout_marginBottom="@dimen/_15sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:background="@drawable/step_round_bg"
+            android:text="2"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+
+        <TextView
+            android:id="@+id/step2Description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/step2"
+            android:layout_marginLeft="@dimen/_50sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_minus10sdp"
+            android:background="@drawable/step_descrip_bg"
+            android:text="@string/myQueue_step1_description"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/closeTutorialTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/step2Description"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/round_button_bg"
+            android:gravity="center"
+            android:paddingBottom="@dimen/_10sdp"
+            android:paddingLeft="@dimen/_25sdp"
+            android:paddingRight="@dimen/_25sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:text="@string/selesai"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+    </android.support.percent.PercentRelativeLayout>
+
+
+    <!--</LinearLayout>-->
 </android.support.v4.widget.NestedScrollView>

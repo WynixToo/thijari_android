@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.thijari.R;
+import com.example.android.thijari.rest.model.Magazine;
 import com.squareup.picasso.Picasso;
-import com.wynixtoo.thijariapilib.model.Magazine;
 
 import java.util.ArrayList;
 import java.util.List;

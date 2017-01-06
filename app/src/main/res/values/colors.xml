@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#954D97</color>
     <color name="colorAccent">#FF4081</color>
     <color name="white_20">#33FFFFFF</color>
+    <color name="black_20">#80000000</color>
     <color name="transparent">#00000000</color>
     <color name="black">#000000</color>
     <color name="icon_enabled">#FFFFFFFF</color>
@@ -19,5 +20,7 @@
     <color name="mag_lbl">#5F85A3</color>
     <color name="dialog_btn_text">#EF5350</color>
     <color name="background_color">#F2F2F2</color>
+    <color name="contact_color">#34b399</color>
+    <color name="contact_grey">#3c3c3c</color>
 
 </resources>

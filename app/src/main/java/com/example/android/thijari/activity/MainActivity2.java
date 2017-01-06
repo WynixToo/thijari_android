@@ -10,12 +10,12 @@ import com.example.android.thijari.R;
 import com.example.android.thijari.customTab.DemoCustomView02Adapter;
 import com.example.android.thijari.customTab.DemoImitationLoopPagerAdapter;
 import com.example.android.thijari.customTab.RecyclerTabLayout;
+import com.example.android.thijari.fragment.MarkerGoogleMapFragment;
+import com.example.android.thijari.rest.model.Magazine;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
-import com.wynixtoo.thijariapilib.model.Magazine;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 public class MainActivity2 extends BaseActivity implements ViewPager.OnPageChangeListener, ObservableScrollViewCallbacks {
@@ -27,6 +27,7 @@ public class MainActivity2 extends BaseActivity implements ViewPager.OnPageChang
     private ImageView headerImg;
     private ArrayList<Integer> selected_icons;
     private ArrayList<Integer> banner_imgs;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,9 @@ public class MainActivity2 extends BaseActivity implements ViewPager.OnPageChang
         RecyclerTabLayout recyclerTabLayout = (RecyclerTabLayout) findViewById(R.id.recycler_tab_layout);
         recyclerTabLayout.setUpWithAdapter(new DemoCustomView02Adapter(viewPager));
         recyclerTabLayout.setPositionThreshold(0.5f);
+
     }
+
 
     public void initMenu() {
         mItems = new ArrayList<>();
@@ -134,6 +137,15 @@ public class MainActivity2 extends BaseActivity implements ViewPager.OnPageChang
             myIntent.putExtra("CATEGORY", magazine.getCategoryString());
             myIntent.putExtra("CATEGORYID", magazine.getCategoryID());
             this.startActivity(myIntent);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == MarkerGoogleMapFragment.REQUEST_CHECK_LOCATION){
+            if(adapter.getContactFragment()!=null)
+                adapter.getContactFragment().onActivityResult(requestCode,resultCode,data);
         }
     }
 }

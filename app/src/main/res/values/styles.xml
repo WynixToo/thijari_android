@@ -31,6 +31,14 @@
         <item name="rtl_tabSelectedTextColor">?android:textColorPrimary</item>
     </style>
 
+    <style name="QueueDialogTheme" parent="@android:style/Theme.Holo.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
+        <item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
+
+    </style>
+
     <style name="rtl_RecyclerTabLayout.Tab">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">?android:textColorSecondary</item>

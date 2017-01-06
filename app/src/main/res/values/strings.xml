@@ -1,9 +1,24 @@
 <resources>
     <string name="app_name">ThiJari</string>
+    <string name="connectionError">Failed to receive data from server, please try again later.</string>
     <string name="promo">PROMOSI</string>
     <string name="contact">HUBUNGI</string>
     <string name="magazine">MAHALAH</string>
     <string name="news">BERITA TERKINI</string>
     <string name="myq">MY Q</string>
     <string name="transaction">PINDAHAN SIMPANAN</string>
+    <string name="myQueu_Description">Tempoh nombor giliran anda di cawangan Tabung Haji.</string>
+    <string name="myQueue_SelectBranch">SMART SELECT BRANCH</string>
+    <string name="myQueue_CheckIn">CHECK IN</string>
+    <string name="myQueue_Tutorial">CARA GUNA</string>
+    <string name="myQueue_dialog_title">Apa itu MyQ?</string>
+    <string name="myQueue_dialog_description">MyQ adalah untuk menempah giliran dengan lebih awal sebelum pergi ke cawangan Tabung Haji.</string>
+    <string name="selesai">SELESAI</string>
+    <string name="myQueue_step1_description">Tap sini untuk tempah ticket sebelum pergi ke cawangan Tabung Haji.</string>
+    <string name="myQueue_step2_description">Scan QR code pada kaunter QR di cawangan Tabung Haji untuk dapat tiket anda</string>
+    <string name="contact_sms">TH &lt;jarak&gt; sebarang pertanyaan dan hantarkan ke 33900</string>
+    <string name="contact_sms2">* setiap jawapan akan dicaj RM0.50</string>
+    <string name="contact_waktu">Waktu Operasi</string>
+    <string name="contact_waktu_description">(Beroperasi pada hari Isnin hingga Ahad. Kecuali pada cuti umum mengikut Wilayah Persekutuan, Kuala Lumpur)</string>
+    <string name="noGPSEnableMsg">GPS tidak buka.</string>
 </resources>
