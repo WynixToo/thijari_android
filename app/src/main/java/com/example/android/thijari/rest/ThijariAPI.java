@@ -29,7 +29,7 @@ public interface ThijariAPI {
     @GET("applogin.php")
     Call<UserData> getTokenByLogin(@Query("mac_id") String mac_id);
 
-    @GET("endpoint.php?action=mainmenu")
+    @GET("endpointv2.php?action=mainmenu")
     Call<List<Feed>> getMainPageFeed();
 
     @GET("endpoint_pagination.php?action=list") //check

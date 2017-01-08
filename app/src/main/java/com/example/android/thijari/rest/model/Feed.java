@@ -14,6 +14,7 @@ public class Feed {
     private String sponsor;
     private String sponsor_image;
     private String has_subcategory;
+    private String button_icon;
 
     public String getCategoryID() {
         return categoryID;
@@ -37,5 +38,9 @@ public class Feed {
 
     public String getHas_subcategory() {
         return has_subcategory;
+    }
+
+    public String getButton_icon() {
+        return button_icon;
     }
 }
