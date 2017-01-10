@@ -21,4 +21,5 @@
     <string name="contact_waktu">Waktu Operasi</string>
     <string name="contact_waktu_description">(Beroperasi pada hari Isnin hingga Ahad. Kecuali pada cuti umum mengikut Wilayah Persekutuan, Kuala Lumpur)</string>
     <string name="noGPSEnableMsg">GPS tidak buka.</string>
+    <string name="noBranch">Unable get nearby branch, please try again later.</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.example.android.thijari.rest;
 
 import com.example.android.thijari.rest.model.Bookmark;
+import com.example.android.thijari.rest.model.BranchInformation;
 import com.example.android.thijari.rest.model.Feed;
 import com.example.android.thijari.rest.model.FullNewsContentData;
 import com.example.android.thijari.rest.model.Magazine;
@@ -61,5 +62,10 @@ public interface ThijariAPI {
 
     @GET("register.php")
     Call<UserData> doRegisterUser(@Query("mac_id") String mac_id, @Query("email") String email, @Query("contact") String contact, @Query("address") String address, @Query("city") String city, @Query("state") String state);
+
+    @GET("getLatLong.php")
+    Call<List<BranchInformation>> getNearbyBranch(@Query("lat") double lat, @Query("long")double log, @Query("limit") int limit);
+
+
 
 }
