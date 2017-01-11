@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
@@ -42,8 +40,6 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -85,7 +81,7 @@ public class MarkerGoogleMapFragment extends Fragment implements OnMapReadyCallb
     private boolean checkLocationPermission() {
         boolean result;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSIONS_REQUEST_LOCATION);
                 result = false;
             } else
@@ -122,16 +118,18 @@ public class MarkerGoogleMapFragment extends Fragment implements OnMapReadyCallb
 
     @Override
     public void onStatusChanged(String s, int i, Bundle bundle) {
-
+        System.out.println("%%%%% onStatusChanged");
     }
 
     @Override
     public void onProviderEnabled(String s) {
+        System.out.println("%%%%% onProviderEnabled");
 
     }
 
     @Override
     public void onProviderDisabled(String s) {
+        System.out.println("%%%%% onProviderDisabled");
 
     }
 
@@ -139,10 +137,13 @@ public class MarkerGoogleMapFragment extends Fragment implements OnMapReadyCallb
 
 
         if (checkLocationPermission()) {
+            locationRequest.setExpirationDuration(10000);//TODO: edited
             locationmanager.requestLocationUpdates(
-                    LocationManager.NETWORK_PROVIDER,
-                    MIN_TIME_BW_UPDATES,
-                    MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+                    LocationManager.GPS_PROVIDER, 1000, 1, this);//TODO: edited
+//            locationmanager.requestLocationUpdates(
+//                    LocationManager.NETWORK_PROVIDER,
+//                    MIN_TIME_BW_UPDATES,
+//                    MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
 
 //            lastLocation = locationmanager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 //            if (lastLocation == null)
@@ -186,14 +187,13 @@ public class MarkerGoogleMapFragment extends Fragment implements OnMapReadyCallb
 
 
     public void addMarker(BranchInformation location) {
-        LatLng branchLocation = getLocationFromAddress(location.getAddress());
+//        LatLng branchLocation = getLocationFromAddress(location.getAddress());
         Location mLocation = new Location("");
         mLocation.setLatitude(Double.parseDouble(location.getLatitude()));
         mLocation.setLongitude(Double.parseDouble(location.getLongitude()));
 
-
         MarkerOptions options = new MarkerOptions();
-        options.position(branchLocation);
+        options.position(new LatLng(mLocation.getLatitude(),mLocation.getLongitude()));
         options.title(location.getName());
         options.snippet(location.getAddress());
         mGoogleMap.addMarker(options);
@@ -213,32 +213,32 @@ public class MarkerGoogleMapFragment extends Fragment implements OnMapReadyCallb
 //    }
 
 
-    private LatLng getLocationFromAddress(String strAddress) {
-        Geocoder coder = new Geocoder(getActivity());
-        List<Address> address;
-        LatLng p1 = null;
-
-        try {
-            address = coder.getFromLocationName(strAddress, 5);
-            if (address == null) {
-                return null;
-            }
-
-
-            Address location = address.get(0);
-            location.getLatitude();
-            location.getLongitude();
-
-            p1 = new LatLng(location.getLatitude(), location.getLongitude());
-
-        } catch (Exception ex) {
-
-            ex.printStackTrace();
-        }
-
-        return p1;
-
-    }
+//    private LatLng getLocationFromAddress(String strAddress) {
+//        Geocoder coder = new Geocoder(getActivity());
+//        List<Address> address;
+//        LatLng p1 = null;
+//
+//        try {
+//            address = coder.getFromLocationName(strAddress, 5);
+//            if (address == null) {
+//                return null;
+//            }
+//
+//
+//            Address location = address.get(0);
+//            location.getLatitude();
+//            location.getLongitude();
+//
+//            p1 = new LatLng(location.getLatitude(), location.getLongitude());
+//
+//        } catch (Exception ex) {
+//
+//            ex.printStackTrace();
+//        }
+//
+//        return p1;
+//
+//    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
