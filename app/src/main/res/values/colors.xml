@@ -3,8 +3,8 @@
     <color name="colorPrimary">#954D97</color>
     <color name="colorPrimaryDark">#954D97</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="light_grey">#E6E6E6</color>
     <color name="white_20">#33FFFFFF</color>
-    <color name="black_20">#80000000</color>
     <color name="transparent">#00000000</color>
     <color name="black">#000000</color>
     <color name="icon_enabled">#FFFFFFFF</color>
@@ -22,5 +22,13 @@
     <color name="background_color">#F2F2F2</color>
     <color name="contact_color">#34b399</color>
     <color name="contact_grey">#3c3c3c</color>
+    <color name="black_20">#80000000</color>
+    <color name="akaun_th_btn_bg">#C1E873</color>
+    <color name="myq_btn_bg">#C1494A</color>
+    <color name="th_color">#626D31</color>
+    <color name="akaun_color">#A3B64B</color>
+    <color name="myq_color">#E88862</color>
+
+    <color name="black_overlay">#9a29aa</color>
 
 </resources>

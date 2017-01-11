@@ -2,7 +2,9 @@ package com.example.android.thijari.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import com.example.android.thijari.rest.ThijariService;
 import com.example.android.thijari.rest.listener.OnRetrofitResponse;
 import com.example.android.thijari.rest.model.Magazine;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -53,7 +56,7 @@ public class MagazineFragment extends BaseFragment {
         //mAdapter = new RecyclerViewMaterialAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
-        ThijariService.getInstance().with(activity).isLoading().getMainMagazine(new OnRetrofitResponse<List<Magazine>>() {
+        ThijariService.getInstance().with(activity).getMainMagazine(new OnRetrofitResponse<List<Magazine>>() {
             @Override
             public void onResponse(List<Magazine> response) {
                 isProgressBarShown(false);
@@ -69,7 +72,7 @@ public class MagazineFragment extends BaseFragment {
         mAdapter.setOnItemClickListener(new MagazineViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Magazine magazine, int position) {
-                passValueToActivity(magazine);
+                passValueToActivity(magazine, getString(R.string.magazine));
             }
         });
 

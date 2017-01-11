@@ -23,16 +23,13 @@ public class DemoImitationLoopPagerAdapter extends FragmentPagerAdapter {
     private static final int NUMBER_OF_LOOPS = 10000;
 
     private List<Integer> mItems = new ArrayList<>();
-    //    private final SparseArrayCompat<WeakReference<Fragment>> holder;
+//    private final SparseArrayCompat<WeakReference<Fragment>> holder;
     private ContactFragment contactFragment;
-    private MagazineFragment magazineFragment;
-    private BeritaTerkiniFragment beritaTerkiniFragment;
-    private PromosiFragment promosiFragment;
-    private MyQFragment myQFragment;
-    private TransaksiFragment transaksiFragment;
+    private String gotoType = "";
 
-    public DemoImitationLoopPagerAdapter(FragmentManager fm) {
+    public DemoImitationLoopPagerAdapter(FragmentManager fm, String type) {
         super(fm);
+        this.gotoType = type;
 //        this.holder = new SparseArrayCompat<>(mItems.size());
     }
 
@@ -51,15 +48,15 @@ public class DemoImitationLoopPagerAdapter extends FragmentPagerAdapter {
                 contactFragment = ContactFragment.newInstance();
                 return contactFragment;
             case 1:
-                return MagazineFragment.newInstance();
+                    return MagazineFragment.newInstance();
             case 2:
-                return BeritaTerkiniFragment.newInstance();
+                    return BeritaTerkiniFragment.newInstance();
             case 3:
-                return PromosiFragment.newInstance();
+                    return PromosiFragment.newInstance();
             case 4:
-                return MyQFragment.newInstance();
+                    return MyQFragment.newInstance();
             case 5:
-                return TransaksiFragment.newInstance();
+                    return TransaksiFragment.newInstance(this.gotoType);
             default:
                 return null;
         }
@@ -165,7 +162,7 @@ public class DemoImitationLoopPagerAdapter extends FragmentPagerAdapter {
 
     private List<Integer> selectedIcons = new ArrayList<>();
 
-    public void setSelectedIcons(List<Integer> icons) {
+    public void setSelectedIcons(List<Integer> icons){
         selectedIcons = icons;
     }
 

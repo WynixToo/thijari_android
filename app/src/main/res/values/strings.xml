@@ -1,12 +1,14 @@
 <resources>
     <string name="app_name">ThiJari</string>
-    <string name="connectionError">Failed to receive data from server, please try again later.</string>
     <string name="promo">PROMOSI</string>
     <string name="contact">HUBUNGI</string>
-    <string name="magazine">MAHALAH</string>
+    <string name="magazine">INFORMASI</string>
     <string name="news">BERITA TERKINI</string>
-    <string name="myq">MY Q</string>
-    <string name="transaction">PINDAHAN SIMPANAN</string>
+    <string name="myq">MyQ</string>
+    <string name="th">TH</string>
+    <string name="akaun">Akuan</string>
+    <string name="change_language">Tukar Bahasa</string>
+    <string name="transaction">AKAUN TH</string>
     <string name="myQueu_Description">Tempoh nombor giliran anda di cawangan Tabung Haji.</string>
     <string name="myQueue_SelectBranch">SMART SELECT BRANCH</string>
     <string name="myQueue_CheckIn">CHECK IN</string>
@@ -20,5 +22,15 @@
     <string name="contact_sms2">* setiap jawapan akan dicaj RM0.50</string>
     <string name="contact_waktu">Waktu Operasi</string>
     <string name="contact_waktu_description">(Beroperasi pada hari Isnin hingga Ahad. Kecuali pada cuti umum mengikut Wilayah Persekutuan, Kuala Lumpur)</string>
+    <string name="other_category">Kategori lain</string>
     <string name="noGPSEnableMsg">GPS tidak buka.</string>
+    <string name="noBranch">Unable get nearby branch, please try again later.</string>
+    <string name="pendeposit">DEPOSIT</string>
+    <string name="haji">HAJI</string>
+    <string name="check_in">CHECK IN</string>
+    <string name="connectionError">Failed to receive data from server, please try again later.</string>
+
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

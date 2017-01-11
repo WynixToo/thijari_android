@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color">
+
+    <ViewFlipper
+        android:id="@+id/viewflipper"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_130sdp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/viewflipper"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_130sdp"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/akaun_th_btn_bg">
+
+                <RelativeLayout
+                    android:id="@+id/topla"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/_20sdp">
+
+                    <TextView
+                        android:id="@+id/akaunlbl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/_3sdp"
+                        android:text="@string/akaun"
+                        android:textColor="@color/akaun_color"
+                        android:textSize="@dimen/_18sdp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/akaunlbl"
+                        android:text="@string/th"
+                        android:textColor="@color/th_color"
+                        android:textSize="@dimen/_18sdp"
+                        android:textStyle="bold|italic" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/topla"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <RelativeLayout
+                        android:id="@+id/penbtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_weight="0.5">
+
+                        <ImageView
+                            android:id="@+id/penicon"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:layout_centerHorizontal="true"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/icon_green_pendeposit" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/penicon"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:text="@string/pendeposit"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_9sdp" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/hajibtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_weight="0.5">
+
+                        <ImageView
+                            android:id="@+id/hajiicon"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:layout_centerHorizontal="true"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/icon_round_haji" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/hajiicon"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:text="@string/haji"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_9sdp" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/myqbtn"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_130sdp"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:background="@color/myq_btn_bg">
+
+                <TextView
+                    android:id="@+id/myqlbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_22sdp"
+                    android:text="@string/myq"
+                    android:textColor="@color/myq_color"
+                    android:textSize="@dimen/_18sdp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/checicon"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_below="@id/myqlbl"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/icon_round_checkin" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/checicon"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/check_in"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_9sdp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/right_panel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -52,8 +52,8 @@ public abstract class BaseFragment extends Fragment {
         listener = null;
     }
 
-    protected void passValueToActivity(Object data) {
-        listener.onFragmentCallback(data);
+    protected void passValueToActivity(Object data, String from) {
+        listener.onFragmentCallback(data, from);
     }
 
 }

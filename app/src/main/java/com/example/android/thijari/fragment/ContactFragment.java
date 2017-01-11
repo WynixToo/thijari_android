@@ -7,12 +7,20 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.thijari.R;
+import com.example.android.thijari.rest.ThijariService;
+import com.example.android.thijari.rest.listener.OnRetrofitResponse;
 import com.example.android.thijari.rest.model.BranchInformation;
-import com.example.android.thijari.rest.model.BranchLocation;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
+
+import java.util.List;
+
+import okhttp3.ResponseBody;
 
 /**
  * Created by florentchampigny on 24/04/15.
@@ -27,6 +35,8 @@ public class ContactFragment extends BaseFragment implements MarkerGoogleMapFrag
     ObservableScrollView mScrollView;
     private TextView branchName, branchTel, branchFax, branchEmail,branchOperationHour;
     private MarkerGoogleMapFragment mapFragment;
+    private ProgressBar loadingMapProgress;
+    private LinearLayout informationLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -37,33 +47,22 @@ public class ContactFragment extends BaseFragment implements MarkerGoogleMapFrag
         branchFax = (TextView)view.findViewById(R.id.branchFax);
         branchEmail = (TextView)view.findViewById(R.id.branchEmail);
         branchOperationHour = (TextView)view.findViewById(R.id.branchOperationHour);
+        loadingMapProgress = (ProgressBar)view.findViewById(R.id.loadingMapProgress);
+        loadingMapProgress.setVisibility(View.GONE);
+        informationLayout = (LinearLayout)view.findViewById(R.id.informationLayout);
+        informationLayout.setVisibility(View.VISIBLE);
         mapFragment = (MarkerGoogleMapFragment)getChildFragmentManager().findFragmentById(R.id.mapFragment);
         mapFragment.setUpdateLocationListener(this);
-        initView();
         return view;
     }
 
-    BranchInformation information = new BranchInformation();
-    private void initView(){
-        information.setEmail("th-info@lth.gov.my");
-        information.setFax("03 - 7728 4959");
-        information.setName("TABUNG HAJI CONTACT CENTER (THCC)");
-        information.setTel("03 - 6027 1919");
-        information.setWaktuOperasi("8:00 pagi - 5:30 petang");
-
-        BranchLocation location = new BranchLocation();
-        location.setLongitude(101.617269);
-        location.setLatitude(3.077326);
-        location.setTitle("Masjid Al - Islamiah Kg Lindungan");
-        location.setAddress("Kampung Lindungan, Sungai Way, Selangor, Jalan PJS 6/4, Pjs 6, 46000 Petaling Jaya, Selangor, Malaysia");
-        information.setLocation(location);
-
-        branchName.setText(information.getName());
-        branchOperationHour.setText(information.getWaktuOperasi());
-        branchEmail.setText(information.getEmail());
-        branchFax.setText(information.getFax());
-        branchTel.setText(information.getTel());
-
+    private void initView(BranchInformation branch){
+        branchName.setText(branch.getName());
+        branchTel.setText(branch.getPhone());
+        branchFax.setText(branch.getFax());
+        branchEmail.setText(branch.getEmail());
+        branchOperationHour.setText(branch.getOperation_hours());
+        mapFragment.addMarker(branch);
     }
 
     @Override
@@ -75,6 +74,21 @@ public class ContactFragment extends BaseFragment implements MarkerGoogleMapFrag
 
     @Override
     public void refreshLocation(Location location) {
-        mapFragment.addMarker(information.getLocation());
+        ThijariService.getInstance().getNearbyBranch(location.getLatitude(), location.getLongitude(), 1, new OnRetrofitResponse<List<BranchInformation>>() {
+            @Override
+            public void onResponse(List<BranchInformation> response) {
+                if(response.size()>0)
+                    initView(response.get(0));
+                else
+                    Toast.makeText(activity, getText(R.string.noBranch), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(ResponseBody errorBody) {
+                Toast.makeText(activity, getText(R.string.noBranch), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
     }
 }

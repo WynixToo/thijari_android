@@ -6,13 +6,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +24,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.android.thijari.R;
-import com.example.android.thijari.rest.model.BranchList;
-import com.example.android.thijari.rest.model.BranchLocation;
+import com.example.android.thijari.rest.model.BranchInformation;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -40,6 +43,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.List;
+
 import static android.app.Activity.RESULT_OK;
 
 
@@ -56,10 +61,10 @@ public class MarkerGoogleMapFragment extends Fragment implements OnMapReadyCallb
     //    private onLocationChangeListener locationListener;
     public static final int REQUEST_CHECK_LOCATION = 101;
     private final int PERMISSIONS_REQUEST_LOCATION = 100;
-    private final int MIN_TIME_BW_UPDATES = 500;
+    private final int MIN_TIME_BW_UPDATES = 5000;
     private final int MIN_DISTANCE_CHANGE_FOR_UPDATES = 500;
 
-    private Location lastLocation;
+    //    private Location lastLocation;
     private OnUpdateLocationListener updateLocationListener;
 
     private final double defaultLatitude = 3.158335;//Tabung Haji HQ Latitude
@@ -78,14 +83,16 @@ public class MarkerGoogleMapFragment extends Fragment implements OnMapReadyCallb
     }
 
     private boolean checkLocationPermission() {
+        boolean result;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (getActivity().checkSelfPermission(Manifest.permission_group.LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission_group.LOCATION}, PERMISSIONS_REQUEST_LOCATION);
-                return false;
-            }
-            return true;
-        }
-        return true;
+            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSIONS_REQUEST_LOCATION);
+                result = false;
+            } else
+                result = true;
+        } else
+            result = true;
+        return result;
     }
 
     @Override
@@ -108,7 +115,7 @@ public class MarkerGoogleMapFragment extends Fragment implements OnMapReadyCallb
     @Override
     public void onLocationChanged(Location location) {
         if (updateLocationListener != null) {
-            lastLocation = location;
+//            lastLocation = location;
             updateLocationListener.refreshLocation(location);
         }
     }
@@ -129,15 +136,17 @@ public class MarkerGoogleMapFragment extends Fragment implements OnMapReadyCallb
     }
 
     private void getLastLocation() {
-        locationmanager.requestLocationUpdates(
-                LocationManager.NETWORK_PROVIDER,
-                MIN_TIME_BW_UPDATES,
-                MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+
 
         if (checkLocationPermission()) {
-            lastLocation = locationmanager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if (lastLocation == null)
-                lastLocation = locationmanager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            locationmanager.requestLocationUpdates(
+                    LocationManager.NETWORK_PROVIDER,
+                    MIN_TIME_BW_UPDATES,
+                    MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+
+//            lastLocation = locationmanager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//            if (lastLocation == null)
+//                lastLocation = locationmanager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         }
     }
 
@@ -159,10 +168,10 @@ public class MarkerGoogleMapFragment extends Fragment implements OnMapReadyCallb
         mGoogleMap.getUiSettings().setZoomControlsEnabled(true);
         if (checkLocationPermission())
             mGoogleMap.setMyLocationEnabled(true);
-        refreshMap();
+        refreshMap(null);
     }
 
-    private void refreshMap() {
+    private void refreshMap(Location lastLocation) {
         CameraUpdate cameraUpdate;
         if (lastLocation == null) {
             mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(defaultLatitude, defaultLongitude)).title(defaultTitle).snippet(defaultAddress));
@@ -173,35 +182,69 @@ public class MarkerGoogleMapFragment extends Fragment implements OnMapReadyCallb
         }
         if (cameraUpdate != null)
             mGoogleMap.animateCamera(cameraUpdate);
-
     }
 
 
-    public void addMarker(BranchLocation location) {
+    public void addMarker(BranchInformation location) {
+        LatLng branchLocation = getLocationFromAddress(location.getAddress());
+        Location mLocation = new Location("");
+        mLocation.setLatitude(Double.parseDouble(location.getLatitude()));
+        mLocation.setLongitude(Double.parseDouble(location.getLongitude()));
+
+
         MarkerOptions options = new MarkerOptions();
-        options.position(new LatLng(location.getLatitude(), location.getLongitude()));
-        options.title(location.getTitle());
+        options.position(branchLocation);
+        options.title(location.getName());
         options.snippet(location.getAddress());
         mGoogleMap.addMarker(options);
-        refreshMap();
+        refreshMap(mLocation);
     }
 
+    //TODO: comment the branch Listing
+//    public void addMarker(BranchList list) {
+//        for (BranchLocation location : list.getLocation()) {
+//            MarkerOptions options = new MarkerOptions();
+//            options.position(new LatLng(location.getLatitude(), location.getLongitude()));
+//            options.title(location.getTitle());
+//            options.snippet(location.getAddress());
+//            mGoogleMap.addMarker(options);
+//            refreshMap();
+//        }
+//    }
 
-    public void addMarker(BranchList list) {
-        for (BranchLocation location : list.getLocation()) {
-            MarkerOptions options = new MarkerOptions();
-            options.position(new LatLng(location.getLatitude(), location.getLongitude()));
-            options.title(location.getTitle());
-            options.snippet(location.getAddress());
-            mGoogleMap.addMarker(options);
-            refreshMap();
+
+    private LatLng getLocationFromAddress(String strAddress) {
+        Geocoder coder = new Geocoder(getActivity());
+        List<Address> address;
+        LatLng p1 = null;
+
+        try {
+            address = coder.getFromLocationName(strAddress, 5);
+            if (address == null) {
+                return null;
+            }
+
+
+            Address location = address.get(0);
+            location.getLatitude();
+            location.getLongitude();
+
+            p1 = new LatLng(location.getLatitude(), location.getLongitude());
+
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
         }
+
+        return p1;
+
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == PERMISSIONS_REQUEST_LOCATION && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+        if (requestCode == PERMISSIONS_REQUEST_LOCATION && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            Location lastLocation = null;
             if (checkLocationPermission()) {
                 lastLocation = locationmanager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                 if (lastLocation == null)
@@ -210,6 +253,7 @@ public class MarkerGoogleMapFragment extends Fragment implements OnMapReadyCallb
                 if (lastLocation != null && updateLocationListener != null)
                     updateLocationListener.refreshLocation(lastLocation);
             }
+        }
     }
 
 

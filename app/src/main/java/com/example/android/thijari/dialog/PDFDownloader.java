@@ -1,5 +1,13 @@
 package com.example.android.thijari.dialog;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLConnection;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,16 +16,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.example.android.thijari.util.PrefStorage;
-
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URL;
-import java.net.URLConnection;
 
 public class PDFDownloader extends AsyncTask<String, String, String> {
 
@@ -83,7 +81,7 @@ public class PDFDownloader extends AsyncTask<String, String, String> {
 	int lenghtOfFile = 0;
 
 	String file_url;
-	
+
 	@Override
 	protected String doInBackground(String... f_url) {
 		int count;
@@ -175,17 +173,17 @@ public class PDFDownloader extends AsyncTask<String, String, String> {
 						Toast.LENGTH_LONG).show();
 
 			} else {
-				PrefStorage imagestore = new PrefStorage(this.context, filename);
-				imagestore.savePreference(filename, "", this.thumnail);
+//				PrefStorage imagestore = new PrefStorage(this.context, filename);
+//				imagestore.savePreference(filename, "", this.thumnail);
 				Toast.makeText(this.context,
 						"File downloaded  " + filename + "  " + thumnail,
 						Toast.LENGTH_SHORT).show();
 			}
 
 			if (callback != null) {
-				 Bundle b = new Bundle();
-				 b.putString("PDFNAME", filename);
-				 b.putString("PDFLINK", file_url);
+				Bundle b = new Bundle();
+				b.putString("PDFNAME", filename);
+				b.putString("PDFLINK", file_url);
 				callback.onpdfCallback(b);
 			}
 		}

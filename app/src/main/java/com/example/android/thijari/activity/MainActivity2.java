@@ -12,6 +12,7 @@ import com.example.android.thijari.customTab.DemoImitationLoopPagerAdapter;
 import com.example.android.thijari.customTab.RecyclerTabLayout;
 import com.example.android.thijari.fragment.MarkerGoogleMapFragment;
 import com.example.android.thijari.rest.model.Magazine;
+import com.example.android.thijari.rest.model.NewsData;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 
@@ -27,7 +28,7 @@ public class MainActivity2 extends BaseActivity implements ViewPager.OnPageChang
     private ImageView headerImg;
     private ArrayList<Integer> selected_icons;
     private ArrayList<Integer> banner_imgs;
-
+    private String gotoType = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +37,12 @@ public class MainActivity2 extends BaseActivity implements ViewPager.OnPageChang
 
         initMenu();
 
+        String SELECTED_POSITION = getIntent().getExtras().getString("POSITION");
+        gotoType = getIntent().getExtras().getString("GOTOTYPE");
+
         headerImg = (ImageView) findViewById(R.id.htab_header);
 
-        adapter = new DemoImitationLoopPagerAdapter(getSupportFragmentManager());
+        adapter = new DemoImitationLoopPagerAdapter(getSupportFragmentManager(), gotoType);
         adapter.addAll(mItems);
         adapter.setSelectedIcons(selected_icons);
 
@@ -46,17 +50,17 @@ public class MainActivity2 extends BaseActivity implements ViewPager.OnPageChang
 
         viewPager = (ViewPager) findViewById(R.id.htab_viewpager);
         viewPager.setAdapter(adapter);
-        viewPager.setCurrentItem(adapter.getCenterPosition(0));
+
+        int pos = Integer.parseInt(SELECTED_POSITION);
+        viewPager.setCurrentItem(adapter.getCenterPosition(pos));
+//        viewPager.setCurrentItem(pos);
         viewPager.addOnPageChangeListener(this);
         viewPager.setOffscreenPageLimit(0);
-
 
         RecyclerTabLayout recyclerTabLayout = (RecyclerTabLayout) findViewById(R.id.recycler_tab_layout);
         recyclerTabLayout.setUpWithAdapter(new DemoCustomView02Adapter(viewPager));
         recyclerTabLayout.setPositionThreshold(0.5f);
-
     }
-
 
     public void initMenu() {
         mItems = new ArrayList<>();
@@ -130,13 +134,20 @@ public class MainActivity2 extends BaseActivity implements ViewPager.OnPageChang
     }
 
     @Override
-    public void onFragmentCallback(Object Data) {
+    public void onFragmentCallback(Object Data, String from) {
         if (Data instanceof Magazine) {
             Magazine magazine = (Magazine) Data;
             Intent myIntent = new Intent(this, ShowAllMagazineActivity.class);
             myIntent.putExtra("CATEGORY", magazine.getCategoryString());
             myIntent.putExtra("CATEGORYID", magazine.getCategoryID());
             this.startActivity(myIntent);
+        } else if (Data instanceof NewsData) {
+            NewsData newsData = (NewsData) Data;
+            Intent myIntent = new Intent(this, ContentActivity.class);
+            myIntent.putExtra("CONTENT_ID", newsData.getContentID());
+            myIntent.putExtra("FROM", from);
+            this.startActivity(myIntent);
+
         }
     }
 

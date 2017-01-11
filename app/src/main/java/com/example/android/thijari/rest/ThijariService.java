@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.example.android.thijari.R;
 import com.example.android.thijari.rest.listener.OnRetrofitResponse;
 import com.example.android.thijari.rest.model.Bookmark;
+import com.example.android.thijari.rest.model.BranchInformation;
 import com.example.android.thijari.rest.model.Feed;
 import com.example.android.thijari.rest.model.FullNewsContentData;
 import com.example.android.thijari.rest.model.Magazine;
@@ -40,9 +41,11 @@ public class ThijariService {
 
     private static ThijariService _instance;
 
-    private String baseUrl = "http://bclnglobal.com/newsappdev/";
+    private final String baseUrl = "http://bclnglobal.com/newsappdev/";
+    private final String branchUrl = "http://thijari.haqqi.com.my/";
     private ThijariAPI api;
     private ThijariAPI nextPageApi;
+    private ThijariAPI branchApi;
     private Context context;
     private Dialog loadingDialog;
     private String connectionErrorMsg;
@@ -59,6 +62,7 @@ public class ThijariService {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create(gson)).build();
         api = retrofit.create(ThijariAPI.class);
         nextPageApi = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build().create(ThijariAPI.class);
+        branchApi = new Retrofit.Builder().baseUrl(branchUrl).addConverterFactory(GsonConverterFactory.create()).build().create(ThijariAPI.class);
     }
 
 
@@ -193,7 +197,6 @@ public class ThijariService {
 
     public void getSubFeedList(String categoryID, final OnRetrofitResponse<List<SubCategoryData>> callback) {
         Call<List<SubCategoryData>> call = api.getSubFeedList(categoryID);
-        System.out.println("%%%%% request Url =" + call.request().url());
         call.enqueue(new RetrofitResponseHandler<List<SubCategoryData>>(loadingDialog, callback) {
             @Override
             void handleError(String errorMessage) {
@@ -232,6 +235,19 @@ public class ThijariService {
     public void getBookmarkedList(String mac_id, final OnRetrofitResponse<List<NewsData>> callback) {
         Call<List<NewsData>> call = api.getBookmarkList(mac_id);
         call.enqueue(new RetrofitResponseHandler<List<NewsData>>(loadingDialog, callback) {
+            @Override
+            void handleError(String errorMessage) {
+                if (context != null)
+                    Toast.makeText(context, connectionErrorMsg, Toast.LENGTH_SHORT).show();
+                callback.onFailure(null);
+            }
+        });
+    }
+
+    public void getNearbyBranch(double lat, double log, int limit, final OnRetrofitResponse<List<BranchInformation>> callback){
+        System.out.println("%%%%% limit = "+limit);
+        Call<List<BranchInformation>> call = branchApi.getNearbyBranch(lat, log, limit);
+        call.enqueue(new RetrofitResponseHandler<List<BranchInformation>>(loadingDialog,callback) {
             @Override
             void handleError(String errorMessage) {
                 if (context != null)

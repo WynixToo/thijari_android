@@ -6,4 +6,8 @@ package com.example.android.thijari.rest.model;
 
 public class ImageUrl {
     private String imgURL;
+
+    public String getImgURL() {
+        return imgURL;
+    }
 }

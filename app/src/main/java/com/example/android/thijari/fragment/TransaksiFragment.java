@@ -35,14 +35,24 @@ import com.example.android.thijari.R;
 public class TransaksiFragment extends BaseFragment {
 
     WebView webView;
+    String gotoType = "";
+    boolean haveLoadedGotoType = false;
 
-    public static TransaksiFragment newInstance() {
-        return new TransaksiFragment();
+    public static TransaksiFragment newInstance(String type) {
+        TransaksiFragment f = new TransaksiFragment();
+
+        // Supply index input as an argument.
+        Bundle args = new Bundle();
+        args.putString("GOTOTYPE", type);
+        f.setArguments(args);
+
+        return f;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        gotoType = getArguments() != null ? getArguments().getString("GOTOTYPE") : "";
     }
 
     @Override
@@ -55,6 +65,7 @@ public class TransaksiFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         webView = (WebView) view.findViewById(R.id.wvTransaction);
 
         webView.getSettings().setJavaScriptEnabled(true);
@@ -140,8 +151,14 @@ public class TransaksiFragment extends BaseFragment {
                 isProgressBarShown(false);
                 Log.d("WebView","Finish loading: '" + url );
 
-                webView.loadUrl("javascript:window.HtmlViewer.showHTML" +
-                        "('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>');");
+                //webView.loadUrl("javascript:window.HtmlViewer.showHTML" +
+                //        "('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>');");
+
+                if ((!gotoType.isEmpty()) && (!haveLoadedGotoType)) {
+                    webView.loadUrl("javascript:$.fn.set_page_type('" + gotoType + "');");
+
+                    haveLoadedGotoType = true;
+                }
             }
 
             @Override
@@ -175,8 +192,21 @@ public class TransaksiFragment extends BaseFragment {
 
         //Change your URL here.
         //webView.loadUrl("http://10.10.10.181/public/login.html");
-        //webView.loadUrl("http://mnsolutions.ddns.net/projects/thijari/public/login.html");
-        webView.loadUrl("http://yahoo.com");
+        //webView.loadUrl("http://mnsolutions.ddns.net/projects/dms/public/login.php");
+
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        WebSettings websettings = webView.getSettings();
+        websettings.setJavaScriptEnabled(true);
+        websettings.setDomStorageEnabled(true);
+        websettings.setUserAgentString("Mozilla/5.0 (Linux; Android 4.1.2; C1905 Build/15.1.C.2.8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36");
+//        webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+//        webView.getSettings().setJavaScriptEnabled(true);
+        //webView.loadUrl("http://mnsolutions.ddns.net/projects/thijari_mobile/public/index.html");
+        webView.loadUrl("http://mnsolutions.ddns.net/projects/thijari_mobile/public/login.html");
+        //webView.loadUrl("http://10.10.10.181/public/index.html");
+
+        //webView.loadUrl("http://yahoo.com");
     }
 
     class javaScriptInterface {

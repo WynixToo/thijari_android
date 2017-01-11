@@ -123,8 +123,8 @@ public class MagazineContentActivity extends BaseActivity implements
             pageNumber = 1;
         setTitle(pdfName = filename);
         String fullPath = Environment.getExternalStorageDirectory()
-                .getAbsolutePath() + "/WebsightCacheFiles/pdf";
-        currentFile = new File(fullPath, filename);
+                .getAbsolutePath() + "/WebsightCacheFiles/pdf/" + filename;
+        currentFile = new File(fullPath);
         if (currentFile != null) {
             if (currentFile.length() == rawfilesize) {
                 // if (UtilMethod.isConnection(this)) {
@@ -138,8 +138,25 @@ public class MagazineContentActivity extends BaseActivity implements
                 // Toast.LENGTH_SHORT).show();
                 // }
                 // } else {
+//                pdfView.fromFile(currentFile).defaultPage(pageNumber)
+//                        .onPageChange(this).load();
                 pdfView.fromFile(currentFile).defaultPage(pageNumber)
-                        .onPageChange(this).load();
+                        .onPageChange(new OnPageChangeListener() {
+                            @Override
+                            public void onPageChanged(int page, int pageCount) {
+                                if (page < 0 && pageCount < 0) {
+                                    Toast.makeText(
+                                            MagazineContentActivity.this,
+                                            "The pdf format is invalid. Please remove and download again",
+                                            Toast.LENGTH_LONG).show();
+                                } else {
+                                    pageNumber = page;
+                                    pagingnum.setText(format("%s %s / %s", "Page:", page, pageCount));
+                                }
+                            }
+                        }).load();
+
+                System.out.println("page  count = " + pdfView.getPageCount());
             } else {
                 Toast.makeText(
                         this,
@@ -274,7 +291,7 @@ public class MagazineContentActivity extends BaseActivity implements
     }
 
     @Override
-    public void onFragmentCallback(Object Data) {
+    public void onFragmentCallback(Object Data, String from) {
 
     }
 

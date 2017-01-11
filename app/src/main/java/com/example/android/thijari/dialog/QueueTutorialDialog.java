@@ -14,7 +14,7 @@ import com.example.android.thijari.R;
 
 public class QueueTutorialDialog extends Dialog {
     public QueueTutorialDialog(Context context, View.OnClickListener listener) {
-        super(context,R.style.QueueDialogTheme);
+        super(context, R.style.QueueDialogTheme);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 //        getWindow().setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);

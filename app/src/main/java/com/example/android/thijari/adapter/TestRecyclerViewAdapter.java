@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 
 import com.example.android.thijari.R;
+import com.example.android.thijari.rest.model.Magazine;
+import com.example.android.thijari.rest.model.NewsData;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,19 +22,25 @@ import java.util.List;
  */
 public class TestRecyclerViewAdapter extends RecyclerView.Adapter<TestRecyclerViewAdapter.ViewHolder> {
 
-    List<Object> contents = new ArrayList<>();
+    List<NewsData> contents = new ArrayList<>();
     private Context context;
 
     //    static final int TYPE_HEADER = 0;
     static final int TYPE_CELL = 1;
+    private OnItemClickListener listener;
 
     public TestRecyclerViewAdapter(Context context) {
         this.context = context;
     }
 
-    public void addAll(List<Object> contents) {
+    public void addAll(List<NewsData> contents) {
         this.contents.addAll(contents);
     }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
 
     @Override
     public int getItemViewType(int position) {
@@ -79,6 +88,16 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<TestRecyclerVi
 //            case TYPE_CELL:
 //                break;
 //        }
+
+        NewsData newsData = contents.get(position);
+        Picasso.with(this.context).load(newsData.getImageURL().get(0).getImgURL()).fit().into(holder.imageView);
+        holder.title.setText(newsData.getTitle());
+        holder.datetime.setText(newsData.getDatetime());
+
+    }
+
+    public NewsData getItem(int position) {
+        return this.contents.get(position);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -96,9 +115,16 @@ public class TestRecyclerViewAdapter extends RecyclerView.Adapter<TestRecyclerVi
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (listener != null) {
+                        listener.onItemClick(getItem(getAdapterPosition()), getAdapterPosition());
+                    }
 //                    getViewPager().setCurrentItem(getAdapterPosition());
                 }
             });
         }
+    }
+
+    public interface OnItemClickListener {
+        public void onItemClick(NewsData newsData, int position);
     }
 }

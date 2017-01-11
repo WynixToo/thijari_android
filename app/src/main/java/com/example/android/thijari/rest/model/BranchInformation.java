@@ -5,58 +5,61 @@ package com.example.android.thijari.rest.model;
  */
 
 public class BranchInformation {
+    private String id;
     private String name;
-    private String tel;
+    private String address;
+    private String phone;
     private String fax;
     private String email;
-    private String waktuOperasi;
-    private BranchLocation location;
+    private String operation_hours;
+    private String remarks;
+    private String distance;
+    private String latitude;
+    private String longitude;
+//    private BranchLocation location;
+
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getDistance() {
+        return distance;
+    }
 
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getFax() {
         return fax;
     }
 
-    public void setFax(String fax) {
-        this.fax = fax;
-    }
-
-    public BranchLocation getLocation() {
-        return location;
-    }
-
-    public void setLocation(BranchLocation location) {
-        this.location = location;
+    public String getId() {
+        return id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getOperation_hours() {
+        return operation_hours;
     }
 
-    public String getTel() {
-        return tel;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setTel(String tel) {
-        this.tel = tel;
-    }
-
-    public String getWaktuOperasi() {
-        return waktuOperasi;
-    }
-
-    public void setWaktuOperasi(String waktuOperasi) {
-        this.waktuOperasi = waktuOperasi;
+    public String getRemarks() {
+        return remarks;
     }
 }

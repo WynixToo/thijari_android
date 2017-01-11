@@ -155,7 +155,7 @@ public class ShowAllMagazineActivity extends BaseActivity implements PDFDownload
 
 
     @Override
-    public void onFragmentCallback(Object Data) {
+    public void onFragmentCallback(Object Data, String from) {
 
     }
 

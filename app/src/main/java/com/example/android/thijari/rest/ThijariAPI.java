@@ -1,6 +1,7 @@
 package com.example.android.thijari.rest;
 
 import com.example.android.thijari.rest.model.Bookmark;
+import com.example.android.thijari.rest.model.BranchInformation;
 import com.example.android.thijari.rest.model.Feed;
 import com.example.android.thijari.rest.model.FullNewsContentData;
 import com.example.android.thijari.rest.model.Magazine;
@@ -29,7 +30,7 @@ public interface ThijariAPI {
     @GET("applogin.php")
     Call<UserData> getTokenByLogin(@Query("mac_id") String mac_id);
 
-    @GET("endpoint.php?action=mainmenu")
+    @GET("endpointv2.php?action=mainmenu")
     Call<List<Feed>> getMainPageFeed();
 
     @GET("endpoint_pagination.php?action=list") //check
@@ -61,5 +62,10 @@ public interface ThijariAPI {
 
     @GET("register.php")
     Call<UserData> doRegisterUser(@Query("mac_id") String mac_id, @Query("email") String email, @Query("contact") String contact, @Query("address") String address, @Query("city") String city, @Query("state") String state);
+
+    @GET("getLatLong.php")
+    Call<List<BranchInformation>> getNearbyBranch(@Query("lat") double lat, @Query("long")double log, @Query("limit") int limit);
+
+
 
 }
